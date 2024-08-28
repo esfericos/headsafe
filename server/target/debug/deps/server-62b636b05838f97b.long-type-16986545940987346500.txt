@@ -1,1 +1,0 @@
-fn(State<HttpState>, Json<ImageData>) -> impl std::future::Future<Output = std::result::Result<impl IntoResponse, {type error}>> {store_data}
