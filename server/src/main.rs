@@ -1,36 +1,38 @@
-use std::fs;
 use client::HttpState;
-use stg::Storage;
-use tokio::{self, task::JoinSet};
+use eyre;
+use tokio::task::JoinSet;
+use crate::stg::Storage;
 
-mod client;
 mod stg;
-
+mod client;
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn main() -> eyre::Result<()> {
     const BASE_PATH: &str = "./images";
-    const ADDRESS: &str = "0.0.0.0:3000";
-
-    let (stg_handle, stg) = Storage::new(BASE_PATH.into());
-    fs::create_dir_all(&stg.base_path).expect("Failed to create storage directory");
+    const ADDRESS: &str = "0.0.0.0:3030";
 
     let mut bag = JoinSet::new();
-    let state = HttpState { storage_handle: stg_handle.clone() };
 
-    bag.spawn(async move {
-        stg.run().await;
-    });
+    let (storage_handle, storage) = Storage::new(BASE_PATH.into());
 
+    // Spawn server routine
+    let state = HttpState{storage_handle};
     bag.spawn(async move {
         let app = client::start_server(state);
         let listener = tokio::net::TcpListener::bind(ADDRESS).await.unwrap();
-        let _ = axum::serve(listener, app);
-        println!("Server starting at: {ADDRESS}");
+        axum::serve(listener, app).await.unwrap();
+        println!("Server runnning on {ADDRESS}");
     });
+
+    // Spawn storage routine
+    bag.spawn(async move {
+        storage.run().await
+    });
+
 
     while let Some(res) = bag.join_next().await {
         res?;
     }
+    
     Ok(())
 }

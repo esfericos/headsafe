@@ -1,5 +1,4 @@
 use tokio::sync::mpsc::{self, Sender, Receiver};
-use std::fs;
 use std::path::PathBuf;
 use uuid::Uuid;
 
@@ -7,7 +6,7 @@ use crate::client::ImageData;
 
 pub struct Storage {
     pub receiver: Receiver<StorageCommand>,
-    pub base_path: PathBuf, // Directory where images will be stored
+    pub base_path: PathBuf, // Directory where endcoded images will remain
 }
 
 #[derive(Clone)]
@@ -29,10 +28,10 @@ impl Storage {
         while let Some(command) = self.receiver.recv().await {
             match command {
                 StorageCommand::StoreImage { data } => {
-                    let filename = format!("{}.jpg", Uuid::new_v4());
+                    let filename = format!("{}.txt", Uuid::new_v4());
                     let file_path = self.base_path.join(&filename);
 
-                    if let Err(e) = fs::write(&file_path, &data.image) {
+                    if let Err(e) = tokio::fs::write(&file_path, &data.image).await {
                         eprintln!("Failed to write image: {}", e);
                     } else {
                         println!(
