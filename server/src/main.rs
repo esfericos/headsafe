@@ -13,22 +13,17 @@ async fn main() -> eyre::Result<()> {
 
     let mut bag = JoinSet::new();
 
-    let (storage_handle, storage) = Storage::new(BASE_PATH.into());
+    let storage = Storage::new(BASE_PATH.into());
+
 
     // Spawn server routine
-    let state = HttpState{storage_handle};
+    let state = HttpState{storage};
     bag.spawn(async move {
         let app = client::start_server(state);
         let listener = tokio::net::TcpListener::bind(ADDRESS).await.unwrap();
         axum::serve(listener, app).await.unwrap();
         println!("Server runnning on {ADDRESS}");
     });
-
-    // Spawn storage routine
-    bag.spawn(async move {
-        storage.run().await
-    });
-
 
     while let Some(res) = bag.join_next().await {
         res?;

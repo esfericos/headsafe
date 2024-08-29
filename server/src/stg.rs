@@ -1,53 +1,40 @@
-use tokio::sync::mpsc::{self, Sender, Receiver};
 use std::path::PathBuf;
+use tokio::fs::File;
+use tokio::io::AsyncWriteExt;
 use uuid::Uuid;
 
 use crate::client::ImageData;
 
-pub struct Storage {
-    pub receiver: Receiver<StorageCommand>,
-    pub base_path: PathBuf, // Directory where endcoded images will remain
-}
-
 #[derive(Clone)]
-pub struct StorageHandle {
-    sender: Sender<StorageCommand>,
-}
-
-pub enum StorageCommand {
-    StoreImage { data: ImageData },
+pub struct Storage {
+    pub base_path: PathBuf,
 }
 
 impl Storage {
-    pub fn new(base_path: PathBuf) -> (StorageHandle, Storage) {
-        let (sender, receiver) = mpsc::channel(100);
-        (StorageHandle { sender }, Storage { receiver, base_path })
+    pub fn new(base_path: PathBuf) -> Self {
+        Storage { base_path }
     }
 
-    pub async fn run(mut self) {
-        while let Some(command) = self.receiver.recv().await {
-            match command {
-                StorageCommand::StoreImage { data } => {
-                    let filename = format!("{}.txt", Uuid::new_v4());
-                    let file_path = self.base_path.join(&filename);
+    pub async fn store_image(&self, data: ImageData) -> eyre::Result<()> {
+        let filename = format!("{}.bin", Uuid::new_v4());
+        let file_path = self.base_path.join(&filename);
 
-                    if let Err(e) = tokio::fs::write(&file_path, &data.image).await {
-                        eprintln!("Failed to write image: {}", e);
-                    } else {
-                        println!(
-                            "Stored image at: {:?}, taken on: {}, at: {}",
-                            file_path, data.date_taken, data.place_name
-                        );
-                    }
-                }
-            }
-        }
-    }
-}
+        let mut file = File::create(&filename).await?;
 
-impl StorageHandle {
-    pub async fn store_image(&self,data: ImageData) {
-        let _ = self.sender
-            .send(StorageCommand::StoreImage { data }).await;
+        file.write_all(data.image.as_bytes()).await?;
+
+        file.write_all(b"\n").await?; 
+        file.write_all(data.date_taken.as_bytes()).await?; 
+        file.write_all(b"\n").await?;
+        file.write_all(data.place_name.as_bytes()).await?;
+
+        file.flush().await?;
+
+        println!(
+            "Stored image at: {:?}, taken on: {}, at: {}",
+            file_path, data.date_taken, data.place_name
+        );
+
+        Ok(())
     }
 }
