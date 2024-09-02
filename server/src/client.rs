@@ -35,5 +35,10 @@ pub(crate) async fn store_data(
 pub fn start_server(state: HttpState) -> Router {
     Router::new()
         .route("/", post(store_data))
+        .route("/hello", post(hello_handle))
         .with_state(state)
+}
+
+pub async fn hello_handle() {
+    println!("Hallo!");
 }
