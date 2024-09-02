@@ -1,1 +1,0 @@
-/Users/edu/Documents/headsafe/server/target/debug/server: /Users/edu/Documents/headsafe/server/src/client.rs /Users/edu/Documents/headsafe/server/src/main.rs /Users/edu/Documents/headsafe/server/src/stg.rs
