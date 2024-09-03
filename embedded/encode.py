@@ -1,6 +1,6 @@
 import cv2
 import time
-import numpy as np
+from datetime import datetime
 
 # Initialize the webcam
 cam = cv2.VideoCapture(0)
@@ -17,18 +17,15 @@ else:
     result, image = cam.read()
     
     if result:
-        # Save the captured image to a file
-        cv2.imwrite("GeeksForGeeks.png", image)
-        
-        # Optionally, display the image in a window
-        cv2.imshow("Captured Image", image)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
-        
-        # Convert the image to JPEG format in memory
+        currentTime = datetime.now().strftime("%d-%m-%Y")
+        print(currentTime)
+
+
+        # Convert the image to JPEG format in memory and encode it as binary
         _, buffer = cv2.imencode('.jpg', image)
         
-        # Write the binary data to a file
+
+        # Write the binary data directly to a file
         with open("image_binary.bin", "wb") as file:
             file.write(buffer)
         
