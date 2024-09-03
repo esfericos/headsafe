@@ -1,11 +1,12 @@
 use std::process::exit;
+use std::sync::Arc;
 
 use client::HttpState;
 use eyre;
+use tokio::sync::RwLock;
 use tokio::task::JoinSet;
 use tracing::info;
 use crate::stg::Storage;
-
 mod stg;
 mod client;
 
@@ -19,9 +20,10 @@ async fn main() -> eyre::Result<()> {
     let mut bag = JoinSet::new();
 
     let storage = Storage::new(BASE_PATH.into());
-
+    let subscribers = Arc::new(RwLock::new((None, None)));
+    
     // Spawn server routine
-    let state = HttpState{storage};
+    let state = HttpState{ storage, subscribers };
     bag.spawn(async move {
         info!("Started server routine");
         let app = client::start_server(state);
