@@ -53,6 +53,7 @@ pub async fn hello_handle(
     ) -> impl IntoResponse {
     info!("Adding new subscriber");
     let headers = req.headers();
+    info!("{:#?}", headers);
     let client_ip = get_client_ip(headers);
 
     info!("{}", client_ip);
@@ -70,16 +71,20 @@ pub async fn hello_handle(
 }
 
 fn get_client_ip(headers: &HeaderMap) -> &str {
-    headers.get("X-Forwarded-For")
-        .and_then(|value| value.to_str().ok())
-        .map(|value| {
-            // Extract the first IP address in the list
-            value.split(',').next().unwrap_or("").trim()
-        })
-        .or_else(|| {
-            // Fallback to X-Real-IP header if X-Forwarded-For is not present
-            headers.get("X-Real-IP")
-                .and_then(|value| value.to_str().ok())
-        })
-        .unwrap_or("unknown")
+    if let Some(forwarded_for) = headers.get("X-Forwarded-For") {
+        if let Ok(value) = forwarded_for.to_str() {
+            if let Some(ip) = value.split(',').next() {
+                return ip.trim();
+            }
+        }
+    }
+    
+    if let Some(real_ip) = headers.get("X-Real-IP") {
+        if let Ok(value) = real_ip.to_str() {
+            return value;
+        }
+    }
+    
+    // If neither header is available, fall back to "unknown"
+    "unknown"
 }
