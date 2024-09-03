@@ -7,7 +7,7 @@ build:
 
 # Run the Docker container
 run:
-	docker run --rm --privileged -v /dev/video0:/dev/video0 --device=/dev/video0 -e DISPLAY=$(DISPLAY) -v /tmp/.X11-unix:/tmp/.X11-unix $(IMAGE_NAME)
+	docker run --rm --privileged -v /dev/video0:/dev/video0 --device=/dev/video0 $(IMAGE_NAME)
 
 # Stop the Docker container
 stop:
