@@ -3,7 +3,7 @@ use tokio::fs::File;
 use tokio::io::AsyncWriteExt;
 use uuid::Uuid;
 
-use crate::client::ImageData;
+use crate::image::ImageData;
 
 #[derive(Clone)]
 pub struct Storage {
@@ -26,13 +26,12 @@ impl Storage {
         file.write_all(b"\n").await?; 
         file.write_all(data.date_taken.as_bytes()).await?; 
         file.write_all(b"\n").await?;
-        file.write_all(data.place_name.as_bytes()).await?;
 
         file.flush().await?;
 
         println!(
-            "Stored image at: {:?}, taken on: {}, at: {}",
-            file_path, data.date_taken, data.place_name
+            "Stored image at: {:?}, taken on: {}",
+            file_path, data.date_taken
         );
 
         Ok(())

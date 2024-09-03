@@ -7,6 +7,7 @@ use tracing::info;
 use crate::stg::Storage;
 mod stg;
 mod client;
+mod image;
 
 #[tokio::main]
 async fn main() -> eyre::Result<()> {
