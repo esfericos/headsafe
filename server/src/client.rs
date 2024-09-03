@@ -1,6 +1,7 @@
 use std::sync::Arc;
+use std::net::SocketAddr;
 
-use axum::{extract::State, http::{HeaderMap, Request, StatusCode}, response::IntoResponse, routing::post, Json, Router};
+use axum::{body::Body, extract::{Request, State}, http::StatusCode, middleware::Next, response::IntoResponse, routing::post, Json, Router};
 use chrono::{DateTime, Utc};
 use serde::Deserialize;
 use tokio::sync::RwLock;
@@ -42,6 +43,17 @@ pub fn start_server(state: HttpState) -> Router {
         .route("/", post(store_data))
         .route("/hello", post(hello_handle))
         .with_state(state)
+        .layer(axum::middleware::from_fn(|req: Request<Body>, next: Next| {
+            async move {
+                let addr = req
+                    .extensions()
+                    .get::<SocketAddr>()
+                    .cloned()
+                    .unwrap_or_else(|| "unknown".parse().unwrap());
+                tracing::info!("ConnectInfo: {:?}", addr);
+                next.run(req).await
+            }
+        }))
 }
 
 /// The client will request connection to the server
@@ -50,41 +62,21 @@ pub fn start_server(state: HttpState) -> Router {
 pub async fn hello_handle(
     State(state): State<HttpState>,
     req: Request<axum::body::Body>,
-    ) -> impl IntoResponse {
-    info!("Adding new subscriber");
-    let headers = req.headers();
-    info!("{:#?}", headers);
-    let client_ip = get_client_ip(headers);
+) -> impl IntoResponse {
+    let client_ip = req
+        .extensions()
+        .get::<axum::extract::connect_info::ConnectInfo<std::net::SocketAddr>>()
+        .map(|connect_info| connect_info.0.ip().to_string())
+        .unwrap_or_else(|| "unknown".to_string());
 
-    info!("{}", client_ip);
-
-    // Update subscribers tuple.
     let mut subscribers = state.subscribers.write().await;
     subscribers.0 = Some(client_ip.to_string());
     subscribers.1 = Some(Utc::now());
-
+    
     info!("Client IP: {}", client_ip);
     info!("Subscriber added: {:?}", subscribers.0);
     info!("Last request date: {:?}", subscribers.1);
+    
 
     StatusCode::OK
-}
-
-fn get_client_ip(headers: &HeaderMap) -> &str {
-    if let Some(forwarded_for) = headers.get("X-Forwarded-For") {
-        if let Ok(value) = forwarded_for.to_str() {
-            if let Some(ip) = value.split(',').next() {
-                return ip.trim();
-            }
-        }
-    }
-    
-    if let Some(real_ip) = headers.get("X-Real-IP") {
-        if let Ok(value) = real_ip.to_str() {
-            return value;
-        }
-    }
-    
-    // If neither header is available, fall back to "unknown"
-    "unknown"
 }
