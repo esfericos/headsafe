@@ -1,10 +1,6 @@
-use std::sync::Arc;
-use std::net::SocketAddr;
 
-use axum::{body::Body, extract::{Request, State}, http::StatusCode, middleware::Next, response::IntoResponse, routing::post, Json, Router};
-use chrono::{DateTime, Utc};
+use axum::{extract::State, http::{Request, StatusCode}, response::IntoResponse, routing::post, Json, Router};
 use serde::Deserialize;
-use tokio::sync::RwLock;
 use tracing::{self, info};
 use crate::stg::Storage;
 
@@ -18,7 +14,6 @@ pub struct ImageData {
 #[derive(Clone)]
 pub struct HttpState {
     pub storage: Storage,
-    pub subscribers: Arc<RwLock<(Option<String>, Option<DateTime<Utc>>)>>,
 }
 
 pub async fn store_data(
@@ -43,17 +38,6 @@ pub fn start_server(state: HttpState) -> Router {
         .route("/", post(store_data))
         .route("/hello", post(hello_handle))
         .with_state(state)
-        .layer(axum::middleware::from_fn(|req: Request<Body>, next: Next| {
-            async move {
-                let addr = req
-                    .extensions()
-                    .get::<SocketAddr>()
-                    .cloned()
-                    .unwrap_or_else(|| "unknown".parse().unwrap());
-                tracing::info!("ConnectInfo: {:?}", addr);
-                next.run(req).await
-            }
-        }))
 }
 
 /// The client will request connection to the server
@@ -62,21 +46,8 @@ pub fn start_server(state: HttpState) -> Router {
 pub async fn hello_handle(
     State(state): State<HttpState>,
     req: Request<axum::body::Body>,
-) -> impl IntoResponse {
-    let client_ip = req
-        .extensions()
-        .get::<axum::extract::connect_info::ConnectInfo<std::net::SocketAddr>>()
-        .map(|connect_info| connect_info.0.ip().to_string())
-        .unwrap_or_else(|| "unknown".to_string());
-
-    let mut subscribers = state.subscribers.write().await;
-    subscribers.0 = Some(client_ip.to_string());
-    subscribers.1 = Some(Utc::now());
+    ) -> impl IntoResponse {
+    info!("Adding new subscriber");
     
-    info!("Client IP: {}", client_ip);
-    info!("Subscriber added: {:?}", subscribers.0);
-    info!("Last request date: {:?}", subscribers.1);
-    
-
     StatusCode::OK
 }
