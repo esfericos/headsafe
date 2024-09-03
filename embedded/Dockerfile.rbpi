@@ -6,6 +6,7 @@ RUN apt-get update && \
     cmake \
     libopencv-dev \
     python3-opencv \
+    git && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
