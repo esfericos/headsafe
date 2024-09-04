@@ -4,7 +4,7 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>WorkSans.ttf</string>
+		<string>WorkSans-Medium.ttf</string>
 	</array>
 </dict>
 </plist>

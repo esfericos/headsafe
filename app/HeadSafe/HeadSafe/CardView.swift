@@ -20,8 +20,9 @@ struct CardView: View {
                 .frame(width: 100, height: 100)
             VStack(alignment: .leading, spacing: 12) {
                 Text(occurrence.description)
-                    .font(.custom("WorkSans", size: 16))
+                    .font(.custom("WorkSans-Medium", size: 16))
                 Text("13:45")
+                    .font(.custom("WorkSans-Medium", size: 14))
             }
         }
     }
