@@ -7,11 +7,6 @@
 
 import SwiftUI
 
-struct Occurrence {
-    let image: Image
-    let description: String
-}
-
 struct CardView: View {
     let occurrence: Occurrence
     var body: some View {

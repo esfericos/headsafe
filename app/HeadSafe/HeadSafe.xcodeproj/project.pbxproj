@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		817605742C88E260001EAC3E /* Occurrence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817605732C88E260001EAC3E /* Occurrence.swift */; };
+		817605782C88E49C001EAC3E /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817605772C88E49C001EAC3E /* NetworkError.swift */; };
+		8176057A2C88E4B5001EAC3E /* APIRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817605792C88E4B5001EAC3E /* APIRoute.swift */; };
+		8176057C2C88E550001EAC3E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176057B2C88E550001EAC3E /* NetworkService.swift */; };
 		81DD6CEF2C88C5AA00066653 /*  OccurrencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DD6CEE2C88C5AA00066653 /*  OccurrencesView.swift */; };
 		81DD6CF32C88C64500066653 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DD6CF22C88C64500066653 /* CardView.swift */; };
 		81DD6D972C88DB4700066653 /* WorkSans-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81DD6D7F2C88DB4700066653 /* WorkSans-Black.ttf */; };
@@ -40,6 +44,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		817605732C88E260001EAC3E /* Occurrence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Occurrence.swift; sourceTree = "<group>"; };
+		817605772C88E49C001EAC3E /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		817605792C88E4B5001EAC3E /* APIRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRoute.swift; sourceTree = "<group>"; };
+		8176057B2C88E550001EAC3E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		81DD6CEE2C88C5AA00066653 /*  OccurrencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " OccurrencesView.swift"; sourceTree = "<group>"; };
 		81DD6CF22C88C64500066653 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		81DD6D242C88CBC000066653 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -89,9 +97,28 @@
 		817605722C88E203001EAC3E /* Occurrences */ = {
 			isa = PBXGroup;
 			children = (
+				81DD6CF22C88C64500066653 /* CardView.swift */,
 				81DD6CEE2C88C5AA00066653 /*  OccurrencesView.swift */,
 			);
 			path = Occurrences;
+			sourceTree = "<group>";
+		};
+		817605752C88E272001EAC3E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				817605732C88E260001EAC3E /* Occurrence.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		817605762C88E436001EAC3E /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				817605772C88E49C001EAC3E /* NetworkError.swift */,
+				817605792C88E4B5001EAC3E /* APIRoute.swift */,
+				8176057B2C88E550001EAC3E /* NetworkService.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		81DD6D912C88DB4700066653 /* static */ = {
@@ -150,13 +177,14 @@
 		81EBAC1F2C7FA5C900D04EC4 /* HeadSafe */ = {
 			isa = PBXGroup;
 			children = (
-				81DD6D242C88CBC000066653 /* Info.plist */,
+				817605762C88E436001EAC3E /* Network */,
 				81EBAC2F2C7FA62600D04EC4 /* Navigation */,
-				81EBAC202C7FA5C900D04EC4 /* HeadSafeApp.swift */,
+				817605752C88E272001EAC3E /* Model */,
 				817605722C88E203001EAC3E /* Occurrences */,
-				81DD6CF22C88C64500066653 /* CardView.swift */,
 				81EBAC242C7FA5CD00D04EC4 /* Assets.xcassets */,
 				81EBAC262C7FA5CD00D04EC4 /* HeadSafe.entitlements */,
+				81DD6D242C88CBC000066653 /* Info.plist */,
+				81EBAC202C7FA5C900D04EC4 /* HeadSafeApp.swift */,
 				81DD6D962C88DB4700066653 /* Work_Sans */,
 				81EBAC272C7FA5CD00D04EC4 /* Preview Content */,
 			);
@@ -273,7 +301,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8176057C2C88E550001EAC3E /* NetworkService.swift in Sources */,
 				81EBAC352C7FA70F00D04EC4 /* HeadSafeFlow.swift in Sources */,
+				8176057A2C88E4B5001EAC3E /* APIRoute.swift in Sources */,
+				817605782C88E49C001EAC3E /* NetworkError.swift in Sources */,
+				817605742C88E260001EAC3E /* Occurrence.swift in Sources */,
 				81EBAC332C7FA6AA00D04EC4 /* HeadSafeViewFactory.swift in Sources */,
 				81EBAC312C7FA67F00D04EC4 /* HeadSafeNavigation.swift in Sources */,
 				81DD6CEF2C88C5AA00066653 /*  OccurrencesView.swift in Sources */,
