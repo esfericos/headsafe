@@ -56,9 +56,22 @@ pub async fn hello_handle(
             let new_images: Vec<_> = m
             .into_iter()
             .filter(|meta| {
-                chrono::NaiveDateTime::parse_from_str(&meta.date_taken, "%Y-%m-%d %H:%M")
-                    .map(|date_taken| date_taken > last_request_time)
-                    .unwrap_or(false)
+                // Ensure both dates are parsed correctly
+                match chrono::NaiveDateTime::parse_from_str(&meta.date_taken, "%Y-%m-%d %H:%M") {
+                    Ok(date_taken) => {
+                        // Log comparison for debugging
+                        info!(
+                            "Comparing dates: stored_date = {}, last_request_time = {}",
+                            date_taken, last_request_time
+                        );
+                        // Perform the actual comparison
+                        date_taken > last_request_time
+                    }
+                    Err(e) => {
+                        error!("Failed to parse date: {}, error: {}", meta.date_taken, e);
+                        false
+                    }
+                }
             })
             .collect();
             
