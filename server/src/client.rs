@@ -47,6 +47,6 @@ pub async fn hello_handle(
     Json(last_req): axum::Json<LastRequest>,
     ) -> impl IntoResponse {
     info!("New subscriber joined");
-    info!("{:#?}", last_req);
+    info!("{:#?}", last_req.0);
     StatusCode::OK
 }
