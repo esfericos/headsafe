@@ -1,5 +1,3 @@
-use std::fs;
-
 use axum::{extract::State, http::StatusCode, response::IntoResponse, routing::post, Json, Router};
 use serde::Deserialize;
 use tracing::{self, error, info};
@@ -26,7 +24,7 @@ pub fn start_server(state: HttpState) -> Router {
 
 pub async fn store_data(
     State(state): State<HttpState>,
-    Json(payload): axum::Json<ImageData>,
+    Json(payload): axum::Json<Image>,
 ) -> impl IntoResponse{
     if !payload.image.is_empty() && !payload.date_taken.is_empty() {
         info!("Payload arrived: {:#?}", payload);
@@ -48,7 +46,32 @@ pub async fn hello_handle(
     State(state): State<HttpState>,
     Json(lr): axum::Json<LastRequest>,
     ) -> impl IntoResponse {
-    info!("New subscriber joined");
-    info!("{:#?}", lr.last_req);
-    StatusCode::OK
+    let last_request_time = match chrono::NaiveDateTime::parse_from_str(&lr.last_req, "%Y-%m-%d %H:%M") {
+        Ok(date) => date,
+        Err(_) => return (StatusCode::BAD_REQUEST, "Invalid date format").into_response(),
+    };
+
+    match state.storage.load_metadata().await {
+        Ok(m) => {
+            let new_images: Vec<_> = m
+            .into_iter()
+            .filter(|meta| {
+                chrono::NaiveDateTime::parse_from_str(&meta.date_taken, "%Y-%m-%d %H:%M")
+                    .map(|date_taken| date_taken > last_request_time)
+                    .unwrap_or(false)
+            })
+            .collect();
+            
+            if new_images.is_empty() {
+               return  (StatusCode::OK, "No new images available").into_response()
+            } else {
+               return Json(new_images).into_response()
+            }
+
+        },
+        Err(e) => {
+            error!("Failed to load metadata: {}", e);
+            (StatusCode::INTERNAL_SERVER_ERROR, "Failed to load images").into_response()
+        },
+    }
 }
