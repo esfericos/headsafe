@@ -59,7 +59,12 @@ class NetworkService {
         }
         
         do {
-            let decodedData = try JSONDecoder().decode(T.self, from: data)
+            let decoder = JSONDecoder()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+            decoder.dateDecodingStrategy = .formatted(dateFormatter)
+            
+            let decodedData = try decoder.decode(T.self, from: data)
             return decodedData
         } catch {
             throw NetworkError.decodingError

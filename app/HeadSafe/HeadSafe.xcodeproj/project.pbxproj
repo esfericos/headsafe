@@ -43,6 +43,8 @@
 		81EBAC352C7FA70F00D04EC4 /* HeadSafeFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EBAC342C7FA70F00D04EC4 /* HeadSafeFlow.swift */; };
 		81F340672C8A2A590008030E /* LastRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F340662C8A2A590008030E /* LastRequestBody.swift */; };
 		81F340692C8A2A970008030E /* OccurrencesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F340682C8A2A970008030E /* OccurrencesViewModel.swift */; };
+		81F3406C2C8A464E0008030E /* OccurrenceDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F3406B2C8A464E0008030E /* OccurrenceDataManager.swift */; };
+		81F3406F2C8A48900008030E /* OccurrenceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F3406E2C8A48900008030E /* OccurrenceMock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +87,8 @@
 		81EBAC342C7FA70F00D04EC4 /* HeadSafeFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadSafeFlow.swift; sourceTree = "<group>"; };
 		81F340662C8A2A590008030E /* LastRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastRequestBody.swift; sourceTree = "<group>"; };
 		81F340682C8A2A970008030E /* OccurrencesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OccurrencesViewModel.swift; sourceTree = "<group>"; };
+		81F3406B2C8A464E0008030E /* OccurrenceDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OccurrenceDataManager.swift; sourceTree = "<group>"; };
+		81F3406E2C8A48900008030E /* OccurrenceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OccurrenceMock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +187,8 @@
 		81EBAC1F2C7FA5C900D04EC4 /* HeadSafe */ = {
 			isa = PBXGroup;
 			children = (
+				81F3406D2C8A486B0008030E /* Mock */,
+				81F3406A2C8A45740008030E /* DataManager */,
 				817605762C88E436001EAC3E /* Network */,
 				81EBAC2F2C7FA62600D04EC4 /* Navigation */,
 				817605752C88E272001EAC3E /* Model */,
@@ -221,6 +227,22 @@
 				81F340662C8A2A590008030E /* LastRequestBody.swift */,
 			);
 			path = Body;
+			sourceTree = "<group>";
+		};
+		81F3406A2C8A45740008030E /* DataManager */ = {
+			isa = PBXGroup;
+			children = (
+				81F3406B2C8A464E0008030E /* OccurrenceDataManager.swift */,
+			);
+			path = DataManager;
+			sourceTree = "<group>";
+		};
+		81F3406D2C8A486B0008030E /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				81F3406E2C8A48900008030E /* OccurrenceMock.swift */,
+			);
+			path = Mock;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -323,9 +345,11 @@
 				817605742C88E260001EAC3E /* Occurrence.swift in Sources */,
 				81EBAC332C7FA6AA00D04EC4 /* HeadSafeViewFactory.swift in Sources */,
 				81EBAC312C7FA67F00D04EC4 /* HeadSafeNavigation.swift in Sources */,
+				81F3406F2C8A48900008030E /* OccurrenceMock.swift in Sources */,
 				81DD6CEF2C88C5AA00066653 /*  OccurrencesView.swift in Sources */,
 				81DD6CF32C88C64500066653 /* CardView.swift in Sources */,
 				81EBAC212C7FA5C900D04EC4 /* HeadSafeApp.swift in Sources */,
+				81F3406C2C8A464E0008030E /* OccurrenceDataManager.swift in Sources */,
 				81F340692C8A2A970008030E /* OccurrencesViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

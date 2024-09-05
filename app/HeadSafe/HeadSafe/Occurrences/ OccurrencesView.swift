@@ -9,7 +9,7 @@ import SwiftUI
 
 struct OccurrencesView: View {
     @StateObject var vm = OccurrencesViewModel()
-    
+
     var body: some View {
         VStack {
             Text("Registro de Ocorrências")
@@ -17,11 +17,15 @@ struct OccurrencesView: View {
                 .padding(24)
             
             ScrollView {
-
+                VStack(spacing: 16) {
+                    ForEach(Array(vm.occurrences.enumerated()), id: \.offset) { index, occurrence in
+                        CardView(occurrence: occurrence )
+                    }
+                }
+                .padding()
             }
             
             Spacer()
-
         }
         .onAppear() {
             Task { await vm.sendLastRequest() }
