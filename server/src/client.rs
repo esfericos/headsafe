@@ -1,5 +1,4 @@
 use axum::{extract::State, http::StatusCode, response::IntoResponse, routing::post, Json, Router};
-use base64::Engine;
 use serde::Deserialize;
 use serde_json::json;
 use tokio::fs::File;
@@ -84,8 +83,8 @@ pub async fn hello_handle(
                     }
                 };
     
-                let mut file_content = Vec::new();
-                if let Err(e) = file.read_to_end(&mut file_content).await {
+                let mut file_content = String::new();
+                if let Err(e) = file.read_to_string(&mut file_content).await {
                     error!("Failed to read file: {:?}, error: {}", file_path, e);
                     continue; // Skip this file if it can't be read
                 }
@@ -93,7 +92,7 @@ pub async fn hello_handle(
                 // Add the file content and metadata to the response
                 image_responses.push(json!({
                     "date_taken": meta.date_taken,
-                    "image_content": base64::engine::general_purpose::STANDARD.encode(file_content) // Convert binary content to base64
+                    "image_content": file_content
                 }));
             }
     
