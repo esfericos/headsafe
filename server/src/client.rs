@@ -8,7 +8,9 @@ use crate::stg::Storage;
 use crate::image::*;
 
 #[derive(Clone, Deserialize, Debug)]
-pub struct LastRequest(pub String);
+pub struct LastRequest {
+    pub last_req: String,
+}
 
 #[derive(Clone)]
 pub struct HttpState {
@@ -44,9 +46,9 @@ pub async fn store_data(
 /// the sever will reply with new availiable images if there's any.
 pub async fn hello_handle(
     State(state): State<HttpState>,
-    Json(last_req): axum::Json<LastRequest>,
+    Json(lr): axum::Json<LastRequest>,
     ) -> impl IntoResponse {
     info!("New subscriber joined");
-    info!("{:#?}", last_req.0);
+    info!("{:#?}", lr.last_req);
     StatusCode::OK
 }
