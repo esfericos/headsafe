@@ -13,6 +13,10 @@ pub struct Storage {
 
 impl Storage {
     pub fn new(base_path: PathBuf) -> Self {
+        if !base_path.exists() {
+            std::fs::create_dir_all(&base_path)
+                .expect("Failed to create base path directory");
+        }
         Storage { base_path }
     }
 
