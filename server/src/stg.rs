@@ -21,7 +21,7 @@ impl Storage {
     }
 
     pub async fn store_image(&self, image: Image) -> eyre::Result<()> {
-        let filename = format!("{}.bin", Uuid::new_v4());
+        let filename = format!("{}.txt", Uuid::new_v4());
         let file_path = self.base_path.join(&filename);
 
         let mut file = File::create(&file_path).await?;
