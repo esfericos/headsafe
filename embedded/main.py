@@ -61,7 +61,7 @@ def capture_and_check_images(cap, model, server_url, num_photos=5, threshold=3):
             save_and_send_image(selected_image, server_url)
 
 if __name__ == "__main__":
-    model = YOLO('embedded/data/best.pt')
+    model = YOLO('./data/best.pt')
 
     cap = cv2.VideoCapture(0)
 
