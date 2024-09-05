@@ -1,5 +1,9 @@
 use axum::{extract::State, http::StatusCode, response::IntoResponse, routing::post, Json, Router};
+use base64::Engine;
 use serde::Deserialize;
+use serde_json::json;
+use tokio::fs::File;
+use tokio::io::AsyncReadExt;
 use tracing::{self, error, info};
 
 use crate::stg::Storage;
@@ -54,8 +58,8 @@ pub async fn hello_handle(
     match state.storage.load_metadata().await {
         Ok(m) => {
             let new_images: Vec<_> = m
-            .into_iter()
-            .filter(|meta| {
+                .into_iter()
+                .filter(|meta| {
                     // Parse the date_taken to compare with last_request_time
                     chrono::NaiveDateTime::parse_from_str(&meta.date_taken, "%Y-%m-%d %H:%M")
                         .map(|date_taken| date_taken > last_request_time)
@@ -66,9 +70,17 @@ pub async fn hello_handle(
             if new_images.is_empty() {
                 return (StatusCode::OK, "No new images available").into_response();
             }
+    
+            let mut image_responses = Vec::new();
+    
+            for meta in new_images {
+                // Read the file contents for the selected images
+                let file_path = state.storage.base_path.join(&meta.file_path);
+                let mut file = match File::open(&file_path).await {
+                    Ok(f) => f,
                     Err(e) => {
-                        error!("Failed to parse date: {}, error: {}", meta.date_taken, e);
-                        false
+                        error!("Failed to open file: {:?}, error: {}", file_path, e);
+                        continue; // Skip this file and move to the next
                     }
                 };
     
@@ -77,19 +89,20 @@ pub async fn hello_handle(
                     error!("Failed to read file: {:?}, error: {}", file_path, e);
                     continue; // Skip this file if it can't be read
                 }
-            })
-            .collect();
-            
-            if new_images.is_empty() {
-               return  (StatusCode::OK, "No new images available").into_response()
-            } else {
-               return Json(new_images).into_response()
+    
+                // Add the file content and metadata to the response
+                image_responses.push(json!({
+                    "date_taken": meta.date_taken,
+                    "image_content": base64::engine::general_purpose::STANDARD.encode(file_content) // Convert binary content to base64
+                }));
             }
-
+    
+            // Return only the selected images as a JSON response
+            Json(image_responses).into_response()
         },
         Err(e) => {
             error!("Failed to load metadata: {}", e);
             (StatusCode::INTERNAL_SERVER_ERROR, "Failed to load images").into_response()
-        },
+        }
     }
 }
