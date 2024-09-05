@@ -25,6 +25,11 @@ impl Storage {
         file.write_all(b"\n").await?;
         file.flush().await?;
 
+        let metadata_path = self.base_path.join("metadata.json");
+        if !metadata_path.exists() {
+            File::create(&metadata_path).await?;
+        }
+
         let metadata = ImageMetadata {
             file_path: file_path.to_string_lossy().into_owned(),
             date_taken: image.date_taken,
