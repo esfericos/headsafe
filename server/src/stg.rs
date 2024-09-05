@@ -1,6 +1,7 @@
 use std::path::PathBuf;
 use tokio::fs::File;
 use tokio::io::AsyncWriteExt;
+use tracing::info;
 use uuid::Uuid;
 
 use crate::image::ImageData;
@@ -29,7 +30,7 @@ impl Storage {
 
         file.flush().await?;
 
-        println!(
+        info!(
             "Stored image at: {:?}, taken on: {}",
             file_path, data.date_taken
         );
