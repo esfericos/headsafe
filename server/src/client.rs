@@ -75,12 +75,12 @@ pub async fn hello_handle(
     
             for meta in new_images {
                 // Read the file contents for the selected images
-                let file_path = state.storage.base_path.join(&meta.file_path);
+                let file_path = meta.file_path;
                 let mut file = match File::open(&file_path).await {
                     Ok(f) => f,
                     Err(e) => {
                         error!("Failed to open file: {:?}, error: {}", file_path, e);
-                        continue; // Skip this file and move to the next
+                        continue; 
                     }
                 };
     
