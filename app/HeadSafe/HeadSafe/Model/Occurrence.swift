@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-struct Occurrence {
-    let image: Image
+struct Occurrence: Decodable {
+    let image: String
     let description: String
 }

@@ -9,7 +9,7 @@ import Foundation
 
 class NetworkService {
     
-    private let baseURL = "http://35.170.158.159:3030/"
+    private let baseURL = "http://35.170.158.159:3030"
     
     // GET
     func request<T: Decodable>(_ route: APIRoute, responseType: T.Type) async throws -> T {

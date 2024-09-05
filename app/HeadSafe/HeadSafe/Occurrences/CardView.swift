@@ -11,8 +11,8 @@ struct CardView: View {
     let occurrence: Occurrence
     var body: some View {
         HStack {
-            occurrence.image
-                .frame(width: 100, height: 100)
+//            occurrence.image
+//                .frame(width: 100, height: 100)
             VStack(alignment: .leading, spacing: 12) {
                 Text(occurrence.description)
                     .font(.custom("WorkSans-Medium", size: 16))
@@ -24,5 +24,5 @@ struct CardView: View {
 }
 
 #Preview {
-    CardView(occurrence: Occurrence(image: Image("testImage"), description: "Gutierrez - 28/08/24"))
+    CardView(occurrence: Occurrence(image: "teste", description: "Gutierrez - 28/08/24"))
 }

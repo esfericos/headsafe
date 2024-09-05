@@ -8,9 +8,24 @@
 import SwiftUI
 
 struct OccurrencesView: View {
+    @StateObject var vm = OccurrencesViewModel()
+    
     var body: some View {
-        Text("Registro de Ocorrências")
-        
+        VStack {
+            Text("Registro de Ocorrências")
+                .font(.custom("WorkSans-Medium", size: 22))
+                .padding(24)
+            
+            ScrollView {
+
+            }
+            
+            Spacer()
+
+        }
+        .onAppear() {
+            Task { await vm.sendLastRequest() }
+        }
     }
 }
 

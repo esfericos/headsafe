@@ -13,7 +13,7 @@ enum APIRoute {
     var path: String {
         switch self {
         case .get, .post:
-            return "/"
+            return "/hello"
         }
     }
     

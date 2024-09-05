@@ -41,6 +41,8 @@
 		81EBAC312C7FA67F00D04EC4 /* HeadSafeNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EBAC302C7FA67E00D04EC4 /* HeadSafeNavigation.swift */; };
 		81EBAC332C7FA6AA00D04EC4 /* HeadSafeViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EBAC322C7FA6AA00D04EC4 /* HeadSafeViewFactory.swift */; };
 		81EBAC352C7FA70F00D04EC4 /* HeadSafeFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EBAC342C7FA70F00D04EC4 /* HeadSafeFlow.swift */; };
+		81F340672C8A2A590008030E /* LastRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F340662C8A2A590008030E /* LastRequestBody.swift */; };
+		81F340692C8A2A970008030E /* OccurrencesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F340682C8A2A970008030E /* OccurrencesViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +83,8 @@
 		81EBAC302C7FA67E00D04EC4 /* HeadSafeNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadSafeNavigation.swift; sourceTree = "<group>"; };
 		81EBAC322C7FA6AA00D04EC4 /* HeadSafeViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadSafeViewFactory.swift; sourceTree = "<group>"; };
 		81EBAC342C7FA70F00D04EC4 /* HeadSafeFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadSafeFlow.swift; sourceTree = "<group>"; };
+		81F340662C8A2A590008030E /* LastRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastRequestBody.swift; sourceTree = "<group>"; };
+		81F340682C8A2A970008030E /* OccurrencesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OccurrencesViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +103,7 @@
 			children = (
 				81DD6CF22C88C64500066653 /* CardView.swift */,
 				81DD6CEE2C88C5AA00066653 /*  OccurrencesView.swift */,
+				81F340682C8A2A970008030E /* OccurrencesViewModel.swift */,
 			);
 			path = Occurrences;
 			sourceTree = "<group>";
@@ -114,6 +119,7 @@
 		817605762C88E436001EAC3E /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				81F340652C8A2A3C0008030E /* Body */,
 				817605772C88E49C001EAC3E /* NetworkError.swift */,
 				817605792C88E4B5001EAC3E /* APIRoute.swift */,
 				8176057B2C88E550001EAC3E /* NetworkService.swift */,
@@ -209,6 +215,14 @@
 			path = Navigation;
 			sourceTree = "<group>";
 		};
+		81F340652C8A2A3C0008030E /* Body */ = {
+			isa = PBXGroup;
+			children = (
+				81F340662C8A2A590008030E /* LastRequestBody.swift */,
+			);
+			path = Body;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -302,6 +316,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8176057C2C88E550001EAC3E /* NetworkService.swift in Sources */,
+				81F340672C8A2A590008030E /* LastRequestBody.swift in Sources */,
 				81EBAC352C7FA70F00D04EC4 /* HeadSafeFlow.swift in Sources */,
 				8176057A2C88E4B5001EAC3E /* APIRoute.swift in Sources */,
 				817605782C88E49C001EAC3E /* NetworkError.swift in Sources */,
@@ -311,6 +326,7 @@
 				81DD6CEF2C88C5AA00066653 /*  OccurrencesView.swift in Sources */,
 				81DD6CF32C88C64500066653 /* CardView.swift in Sources */,
 				81EBAC212C7FA5C900D04EC4 /* HeadSafeApp.swift in Sources */,
+				81F340692C8A2A970008030E /* OccurrencesViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
