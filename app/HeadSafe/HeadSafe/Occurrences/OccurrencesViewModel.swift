@@ -12,6 +12,10 @@ class OccurrencesViewModel: ObservableObject {
     let network = NetworkService()
     @Published var occurrences: [Occurrence] = []
     
+    init() {
+        occurrences = OccurrenceDataManager.loadOccurrences() ?? []
+    }
+    
     func formattedDate(_ date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
@@ -20,19 +24,14 @@ class OccurrencesViewModel: ObservableObject {
 
     func sendLastRequest() async {
         let now = Date()
-//        let formattedLastReq = formattedDate(now)
-        let formattedLastReq = "2024-09-05 17:30"
+        let formattedLastReq = OccurrenceDataManager.loadLastReq() ?? "2023-09-05 19:38"
         let body = LastRequestBody(last_req: formattedLastReq)
         
         do {
             let response = try await network.postRequest(.post, body: body, responseType: [Occurrence].self)
-//            OccurrenceDataManager.saveOccurrences(response)
-//            occurrences = OccurrenceDataManager.loadOccurrences() ?? []
-            print(response)
-            occurrences = response
-            
-            print(occurrences[0].image)
-            
+            OccurrenceDataManager.saveOccurrences(response)
+            occurrences = OccurrenceDataManager.loadOccurrences() ?? []
+            OccurrenceDataManager.saveLastReq(formattedDate(now))
         } catch {
             print("Error: \(error.localizedDescription)")
         }

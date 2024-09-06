@@ -11,25 +11,29 @@ import SwiftUI
 
 struct CardView: View {
     let occurrence: Occurrence
-    
+    let number: Int
     var body: some View {
         HStack {
             if let uiImage = decodeBase64ToImage(base64String: occurrence.image) {
                 Image(uiImage: uiImage)
                     .resizable()
-                    .frame(width: 400, height: 400)
+                    .frame(width: 130, height: 100)
+                    .cornerRadius(3)
             } else {
                 Rectangle() // Placeholder if image decoding fails
-                    .frame(width: 400, height: 400)
+                    .frame(width: 130, height: 100)
                     .foregroundColor(.gray)
+                    .cornerRadius(3)
             }
             
             VStack(alignment: .leading, spacing: 12) {
-                Text(occurrence.description)
+                Text("Ocorrência \(number)")
                     .font(.custom("WorkSans-Medium", size: 16))
-                Text("13:45")
+                Text(formatDateString(occurrence.description) ?? "")
                     .font(.custom("WorkSans-Medium", size: 14))
+                    .foregroundStyle(Color(UIColor.customGray.asColor))
             }
+            Spacer()
         }
     }
     
@@ -49,8 +53,27 @@ struct CardView: View {
         }
         return result
     }
+    
+    func formatDateString(_ dateString: String) -> String? {
+        // Definir o formatador de data para o formato original da string
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+        inputFormatter.locale = Locale(identifier: "en_US_POSIX") // Evitar problemas com formatação de data
+        
+        // Converter a string para um objeto Date
+        guard let date = inputFormatter.date(from: dateString) else {
+            return nil
+        }
+        
+        // Definir o formatador de data para o formato desejado
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateFormat = "dd/MM/yyyy HH:mm"
+        
+        // Converter a data de volta para uma string no formato desejado
+        return outputFormatter.string(from: date)
+    }
 }
 
 #Preview {
-    CardView(occurrence: Occurrence(description: "Gutierrez - 28/08/24", image: ""))
+    CardView(occurrence: Occurrence(description: "Gutierrez - 28/08/24", image: ""), number: 1)
 }

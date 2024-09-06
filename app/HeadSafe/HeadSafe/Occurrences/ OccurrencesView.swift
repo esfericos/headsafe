@@ -19,8 +19,13 @@ struct OccurrencesView: View {
             ScrollView {
                 VStack(spacing: 16) {
                     ForEach(Array(vm.occurrences.enumerated()), id: \.offset) { index, occurrence in
-                        CardView(occurrence: occurrence )
+                        CardView(occurrence: occurrence, number: index + 1)
                     }
+                    
+                    Text("\(vm.occurrences.count) ocorrências")
+                        .font(.custom("WorkSans-Medium", size: 14))
+                        .foregroundStyle(Color(UIColor.customGray.asColor))
+                        .padding(.top, 20)
                 }
                 .padding()
             }

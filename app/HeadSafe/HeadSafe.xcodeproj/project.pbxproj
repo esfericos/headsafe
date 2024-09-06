@@ -45,6 +45,8 @@
 		81F340692C8A2A970008030E /* OccurrencesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F340682C8A2A970008030E /* OccurrencesViewModel.swift */; };
 		81F3406C2C8A464E0008030E /* OccurrenceDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F3406B2C8A464E0008030E /* OccurrenceDataManager.swift */; };
 		81F3406F2C8A48900008030E /* OccurrenceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F3406E2C8A48900008030E /* OccurrenceMock.swift */; };
+		81F340722C8A73AA0008030E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F340712C8A73AA0008030E /* Colors.swift */; };
+		81F340752C8A777B0008030E /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F340742C8A777B0008030E /* SplashView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,7 +56,6 @@
 		8176057B2C88E550001EAC3E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		81DD6CEE2C88C5AA00066653 /*  OccurrencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " OccurrencesView.swift"; sourceTree = "<group>"; };
 		81DD6CF22C88C64500066653 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
-		81DD6D242C88CBC000066653 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		81DD6D7F2C88DB4700066653 /* WorkSans-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WorkSans-Black.ttf"; sourceTree = "<group>"; };
 		81DD6D802C88DB4700066653 /* WorkSans-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WorkSans-BlackItalic.ttf"; sourceTree = "<group>"; };
 		81DD6D812C88DB4700066653 /* WorkSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WorkSans-Bold.ttf"; sourceTree = "<group>"; };
@@ -80,7 +81,6 @@
 		81EBAC1D2C7FA5C900D04EC4 /* HeadSafe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HeadSafe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81EBAC202C7FA5C900D04EC4 /* HeadSafeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadSafeApp.swift; sourceTree = "<group>"; };
 		81EBAC242C7FA5CD00D04EC4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		81EBAC262C7FA5CD00D04EC4 /* HeadSafe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HeadSafe.entitlements; sourceTree = "<group>"; };
 		81EBAC282C7FA5CD00D04EC4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		81EBAC302C7FA67E00D04EC4 /* HeadSafeNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadSafeNavigation.swift; sourceTree = "<group>"; };
 		81EBAC322C7FA6AA00D04EC4 /* HeadSafeViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadSafeViewFactory.swift; sourceTree = "<group>"; };
@@ -89,6 +89,8 @@
 		81F340682C8A2A970008030E /* OccurrencesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OccurrencesViewModel.swift; sourceTree = "<group>"; };
 		81F3406B2C8A464E0008030E /* OccurrenceDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OccurrenceDataManager.swift; sourceTree = "<group>"; };
 		81F3406E2C8A48900008030E /* OccurrenceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OccurrenceMock.swift; sourceTree = "<group>"; };
+		81F340712C8A73AA0008030E /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		81F340742C8A777B0008030E /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +189,8 @@
 		81EBAC1F2C7FA5C900D04EC4 /* HeadSafe */ = {
 			isa = PBXGroup;
 			children = (
+				81F340732C8A774A0008030E /* SplashView */,
+				81F340702C8A73950008030E /* Colors */,
 				81F3406D2C8A486B0008030E /* Mock */,
 				81F3406A2C8A45740008030E /* DataManager */,
 				817605762C88E436001EAC3E /* Network */,
@@ -194,8 +198,6 @@
 				817605752C88E272001EAC3E /* Model */,
 				817605722C88E203001EAC3E /* Occurrences */,
 				81EBAC242C7FA5CD00D04EC4 /* Assets.xcassets */,
-				81EBAC262C7FA5CD00D04EC4 /* HeadSafe.entitlements */,
-				81DD6D242C88CBC000066653 /* Info.plist */,
 				81EBAC202C7FA5C900D04EC4 /* HeadSafeApp.swift */,
 				81DD6D962C88DB4700066653 /* Work_Sans */,
 				81EBAC272C7FA5CD00D04EC4 /* Preview Content */,
@@ -243,6 +245,22 @@
 				81F3406E2C8A48900008030E /* OccurrenceMock.swift */,
 			);
 			path = Mock;
+			sourceTree = "<group>";
+		};
+		81F340702C8A73950008030E /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				81F340712C8A73AA0008030E /* Colors.swift */,
+			);
+			path = Colors;
+			sourceTree = "<group>";
+		};
+		81F340732C8A774A0008030E /* SplashView */ = {
+			isa = PBXGroup;
+			children = (
+				81F340742C8A777B0008030E /* SplashView.swift */,
+			);
+			path = SplashView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -338,6 +356,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8176057C2C88E550001EAC3E /* NetworkService.swift in Sources */,
+				81F340752C8A777B0008030E /* SplashView.swift in Sources */,
+				81F340722C8A73AA0008030E /* Colors.swift in Sources */,
 				81F340672C8A2A590008030E /* LastRequestBody.swift in Sources */,
 				81EBAC352C7FA70F00D04EC4 /* HeadSafeFlow.swift in Sources */,
 				8176057A2C88E4B5001EAC3E /* APIRoute.swift in Sources */,
@@ -493,8 +513,7 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
@@ -533,8 +552,7 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";

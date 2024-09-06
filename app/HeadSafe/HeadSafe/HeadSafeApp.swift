@@ -11,7 +11,7 @@ import SwiftUI
 struct HeadSafeApp: App {
     var body: some Scene {
         WindowGroup {
-            OccurrencesView()
+            SplashView()
         }
     }
 }
