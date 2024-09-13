@@ -5,9 +5,9 @@ The full system is made of three components: A computer node responsible for the
 
 ```mermaid
 flowchart TB
-        subgraph raspberrypi
+        subgraph Camera Node
             py[Image Detection Service - Thread 1]
-            py -- oneshot --> no[Notifier]
+            py --> no[Sender]
         end
         subgraph server
         no -- HTTP --> list[Http_Listener]
@@ -17,4 +17,5 @@ flowchart TB
         subgraph application
             cv -- HTTP --> Display
         end
+
 ```
