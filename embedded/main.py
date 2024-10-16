@@ -17,7 +17,7 @@ def save_and_send_image(image, server_url):
     image_base64 = base64.b64encode(image_bytes).decode('utf-8')
 
     # Captura a data e hora atuais
-    date_taken = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    date_taken = datetime.now().strftime("%Y-%m-%d %H:%M")
 
     # Cria um JSON com a imagem em base64 e a data/hora de captura
     json_data = json.dumps({
