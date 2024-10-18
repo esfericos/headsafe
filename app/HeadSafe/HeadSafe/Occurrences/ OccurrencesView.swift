@@ -9,6 +9,7 @@ import SwiftUI
 
 struct OccurrencesView: View {
     @StateObject var vm = OccurrencesViewModel()
+    @State private var selectedCardIndex: Int? = nil
 
     var body: some View {
         VStack {
@@ -19,7 +20,16 @@ struct OccurrencesView: View {
             ScrollView {
                 VStack(spacing: 16) {
                     ForEach(Array(vm.occurrences.enumerated()), id: \.offset) { index, occurrence in
-                        CardView(occurrence: occurrence, number: index + 1)
+                        CardView(occurrence: occurrence, number: index + 1, isSelected: selectedCardIndex == index)
+                            .onTapGesture {
+                                if selectedCardIndex == index {
+                                    // Desseleciona se já estiver selecionado
+                                    selectedCardIndex = nil
+                                } else {
+                                    // Seleciona um novo cartão
+                                    selectedCardIndex = index
+                                }
+                            }
                     }
                     
                     Text("\(vm.occurrences.count) ocorrências")
@@ -28,6 +38,9 @@ struct OccurrencesView: View {
                         .padding(.top, 20)
                 }
                 .padding()
+            }
+            .refreshable {
+                Task { await vm.sendLastRequest() }
             }
             
             Spacer()
